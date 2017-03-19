@@ -35,5 +35,13 @@ public class FileUtils {
         bw.close();
 
     }
+    
+    public static void writeFileAppend(File file, String data) throws Exception {
+        OutputStreamWriter write = new OutputStreamWriter(new FileOutputStream(file,true), "GBK");
+        BufferedWriter bw = new BufferedWriter(write);
+        bw.write(data);
+        bw.close();
+
+    }
 
 }

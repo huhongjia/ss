@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.ts.config.PropertiesConfig;
+
 public class CheckMain {
 
     static Map<String, String> fixDate = new HashMap<String, String>();
@@ -33,7 +35,7 @@ public class CheckMain {
     }
 
     private void start(String[] args) throws Exception {
-        Properties p = loadConfig(args);
+        Properties p = new PropertiesConfig().loadConfig(args);
         System.out.println(p.get("source"));
 
         String sourceFiles = p.getProperty("source");
@@ -91,6 +93,23 @@ public class CheckMain {
             System.out.println("写入完毕：" + outFile);
 
         }
+    }
+    
+    public Properties loadConfig(String[] args) throws Exception {
+        Properties pro = new Properties();
+
+        InputStream in = null;
+        if (args == null || args.length == 0) {
+            in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+
+        } else {
+            in = new FileInputStream(new File(args[0]));
+        }
+
+        pro.load(in);
+        in.close();
+
+        return pro;
     }
 
     /**
@@ -292,22 +311,5 @@ public class CheckMain {
 
         return false;
 
-    }
-
-    public Properties loadConfig(String[] args) throws Exception {
-        Properties pro = new Properties();
-
-        InputStream in = null;
-        if (args == null || args.length == 0) {
-            in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
-
-        } else {
-            in = new FileInputStream(new File(args[0]));
-        }
-
-        pro.load(in);
-        in.close();
-
-        return pro;
     }
 }

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&list_id=15769282 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Bug List</title>
+
+      
+
+<link href="./Bug List_files/a69f25bf8cec3973e0c675afc7f621c3.css" rel="stylesheet" type="text/css">
+
+
+
+    
+<script type="text/javascript" src="./Bug List_files/a7c2f3a028f17a9aa60f56dc9d6e732d.js"></script>
+
+    <script type="text/javascript">
+    <!--
+        YAHOO.namespace('bugzilla');
+        YAHOO.util.Event.addListener = function (el, sType, fn, obj, overrideContext) {
+               if ( ("onpagehide" in window || YAHOO.env.ua.gecko) && sType === "unload") { sType = "pagehide"; };
+               var capture = ((sType == "focusin" || sType == "focusout") && !YAHOO.env.ua.ie) ? true : false;
+               return this._addListener(el, this._getType(sType), fn, obj, overrideContext, capture);
+         };
+        if ( "onpagehide" in window || YAHOO.env.ua.gecko) {
+            YAHOO.util.Event._simpleRemove(window, "unload", 
+                                           YAHOO.util.Event._unload);
+        }
+        
+        function unhide_language_selector() { 
+            YAHOO.util.Dom.removeClass(
+                'lang_links_container', 'bz_default_hidden'
+            ); 
+        } 
+        YAHOO.util.Event.onDOMReady(unhide_language_selector);
+
+        
+        var BUGZILLA = {
+            param: {
+                cookiepath: '\/bugzilla\/',
+                maxusermatches: 6000
+            },
+            constant: {
+                COMMENT_COLS: 80
+            },
+            string: {
+                
+
+                attach_desc_required:
+                    "You must enter a Description for this attachment.",
+                component_required:
+                    "You must select a Component for this bug.",
+                description_required:
+                    "You must enter a Description for this bug.",
+                short_desc_required:
+                    "You must enter a Summary for this bug.",
+                version_required:
+                    "You must select a Version for this bug."
+            }
+        };
+
+
+    if (history && history.replaceState) {
+      history.replaceState(null, "Bug List",
+                           "buglist.cgi?bug_id=652317%2C651950%2C652140&list_id=15769282");
+      document.title = "Bug List";
+    }
+    // -->
+    </script>
+<script type="text/javascript" src="./Bug List_files/f119866a68256a70f172895043aa1e11.js"></script>
+
+    
+       <link rel="alternate" type="application/atom+xml" title="Atom feed" href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;title=Bug%20List&amp;ctype=atom">
+
+    
+    <link rel="search" type="application/opensearchdescription+xml" title="Bugzilla" href="http://bugzilla.spreadtrum.com/bugzilla/search_plugin.cgi">
+    <link rel="shortcut icon" href="http://bugzilla.spreadtrum.com/bugzilla/images/favicon.ico">
+  </head>
+
+  <body class="bugzilla-spreadtrum-com-bugzilla yui-skin-sam">
+
+  <div id="header"><div id="banner">
+  </div>
+
+    <div id="titles">
+      <span id="title">Bugzilla – Bug List</span>
+
+
+    </div>
+
+
+    <div id="common_links"><ul class="links">
+  <li><a href="http://bugzilla.spreadtrum.com/bugzilla/">Home</a></li>
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/enter_bug.cgi">New</a></li>
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/describecomponents.cgi">Browse</a></li>
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/query.cgi">Search</a></li>
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/page.cgi?id=productsummary.html">Product Summary</a></li>
+
+  <li class="form">
+    <span class="separator">| </span>
+    <form action="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi" method="get" onsubmit="if (this.quicksearch.value == &#39;&#39;)
+                  { alert(&#39;Please enter one or more search terms first.&#39;);
+                    return false; } return true;">
+    <input class="txt" type="text" id="quicksearch_top" name="quicksearch" title="Quick Search" value="">
+    <input class="btn" type="submit" value="Search" id="find_top"></form>
+  <a href="http://bugzilla.spreadtrum.com/bugzilla/page.cgi?id=quicksearch.html" title="Quicksearch Help">[?]</a></li>
+
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/report.cgi">Reports</a></li>
+
+  <li>
+      <span class="separator">| </span>
+        <a href="http://bugzilla.spreadtrum.com/bugzilla/request.cgi?requester=huoln%40spreadst.com&amp;requestee=huoln%40spreadst.com&amp;do_union=1&amp;group=type&amp;action=queue">My Requests</a></li>
+
+    <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/userprefs.cgi">Preferences</a></li>
+      <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/admin.cgi">Administration</a></li>
+
+
+    <li>
+      <span class="separator">| </span>
+        <a href="http://bugzilla.spreadtrum.com/bugzilla/index.cgi?logout=1">Log&nbsp;out</a>
+        huoln@spreadst.com</li>
+</ul>
+    </div>
+  </div>
+
+  <div id="bugzilla-body">Attention: 2015-12-27 Upgrade to R5.0.2<br>
+No Chinese Characters is permitted in <b>Summary/Analysis_Solution/Comments</b> Fields with Bugs whose Come_From is <b>FT_Oversea</b>.
+
+<div class="bz_query_head">
+  <span class="bz_query_timestamp">Sat Mar 18 2017 22:18:51 CST<br>
+  </span>
+
+
+    <span class="bz_quip">
+      <a href="http://bugzilla.spreadtrum.com/bugzilla/quips.cgi"><em>获得人生中的成功需要的专注与坚持不懈多过天才与机会</em></a>
+    </span>
+
+</div>
+
+
+<a id="search_description_controller" href="javascript:TUI_toggle_class(&#39;search_description&#39;)">Hide Search Description</a>
+
+<script type="text/javascript">
+  TUI_alternates['search_description'] = 'Show Search Description';
+  YAHOO.util.Dom.removeClass('search_description_controller', 
+                             'bz_default_hidden');
+</script>
+
+<ul class="search_description">
+  <li>
+    <strong>Bug ID:</strong>
+      652317,
+      651950,
+      652140
+  </li>
+</ul>
+
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="./Bug List_files/jquery.js"></script>
+<script src="./Bug List_files/jquery.qtip.min.js"></script>
+<link type="text/css" rel="stylesheet" href="./Bug List_files/jquery.qtip.min.css">
+<script>
+var _displayColumns='';
+	_displayColumns+='product,';
+	_displayColumns+='component,';
+	_displayColumns+='assigned_to,';
+	_displayColumns+='bug_status,';
+	_displayColumns+='resolution,';
+	_displayColumns+='short_desc,';
+	_displayColumns+='changeddate,';
+	_displayColumns+='elapsed_day,';
+	_displayColumns+='cf_come_from,';
+_displayColumns=_displayColumns.substr(0,_displayColumns.length-1);
+$.preloader=function(){
+	var mask=document.getElementById('loading-indicator-mask');
+	if(mask){
+		$(mask).css({'display':'block'});
+	}else{
+		try{
+			$('<div id="loading-indicator-mask"/>').appendTo(document.body).append('<div id="loading-indicator"/>');
+		}catch(e){}
+	}
+};
+$.closePreloader=function(){
+	var mask=document.getElementById('loading-indicator-mask');
+	if(mask){
+		$(mask).css({'display':'none'});
+	}
+};
+function sprd_show_tree_bugs(id){
+	var trigger=$('#b'+id+' .x-tree-folder');
+	var openedclass='x-tree-folder-opened';
+	var children=$('#bz_buglist [data-dup='+id+']');
+	
+	if(trigger.hasClass(openedclass)){
+		trigger.removeClass(openedclass);
+		children.each(function(){
+			$(this).css({'display':'none'});
+		});
+		return;
+	}
+	
+	trigger.addClass(openedclass);
+	
+	if(children.length>0){
+		children.each(function(){
+			$(this).css({'display':''});
+		});
+		return;
+	}
+	
+	$.preloader();
+	
+	function done(){
+		$.closePreloader();
+	}
+	
+	$.ajax({
+		url : 'buglist_dup.cgi?id='+id, 
+		data:'displaycolumns='+_displayColumns,
+		method: 'POST',
+		error : function(request) {
+			done();
+			//ignore
+		},
+		success : function(result) {
+			done();
+			var rows=$(result);
+			var node=$('#b'+id);
+			for(var i=0;i<rows.length;i++){
+			    var self=$(rows[i]);
+				self.insertAfter(node);
+				node=self;
+			}
+		}
+	});
+}
+
+$(document).ready(function(){
+	$('.x-dup-leaf').each(function(){
+		 $(this).qtip({
+		 	style: 'qtip-tipsy',//qtip-jtools  qtip-tipped qtip-youtube
+		 	hide: false,
+			show: {
+			    //event: 'mouseover', 
+			    solo: true, 
+			    modal: true
+			 },
+	        content: {
+				text: '<p>Loading...</p>',
+				title: {text: "duplicate of", button: "close" },
+				ajax: {
+					url: 'bug_dup.cgi?id='+this.getAttribute('data-dupid')
+				}
+	        }
+	     });
+	 });
+});
+
+</script>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <table class="bz_buglist" id="bz_buglist" cellspacing="0" cellpadding="4" width="100%">
+    <tbody><tr class="bz_buglist_header bz_first_buglist_header">
+      <th><b>No.</b></th> 
+      <th colspan="1" class="first-child">
+        <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=bug_id%20DESC&amp;query_based_on=">ID</a>
+      </th>
+
+<th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=product%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&amp;query_based_on=">Product</a>
+  </th><th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=component%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&amp;query_based_on=">Component</a>
+  </th><th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=assigned_to%20DESC%2Cbug_status%2Cpriority%2Cbug_id&amp;query_based_on=">Assignee<span class="bz_sort_order_secondary">▲</span></a>
+  </th><th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=bug_status%20DESC%2Cpriority%2Cassigned_to%2Cbug_id&amp;query_based_on=">Status<span class="bz_sort_order_primary">▲</span></a>
+  </th><th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=resolution%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&amp;query_based_on=">Resolution</a>
+  </th><th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=short_desc%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&amp;query_based_on=">Summary</a>
+  </th><th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=changeddate%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&amp;query_based_on=">Changed</a>
+  </th><th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=elapsed_day%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&amp;query_based_on=">Elapsed Day</a>
+  </th><th colspan="1">
+    <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=cf_come_from%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&amp;query_based_on=">Come_From</a>
+  </th>
+
+
+    </tr>
+
+<tr id="b652317" class="bz_bugitem
+    	bz_2-Major    	bz_3-Normal_Queue    	bz_Fixed    	    	bz_secure    	bz_secure_mode_manual    	bz_row_odd    	">
+
+    	<td>1</td>
+    	<td class="first-child bz_id_column ">
+      	<a href="http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=652317">652317</a>
+      <span class="bz_default_hidden">[SEC]</span>
+    	</td>
+
+    <td class="bz_product_column nowrap">
+        	<span title="Sprdroid_7.0_SharkL2">Sprdroid_7.0_SharkL2
+        	</span>
+    	</td>
+    <td class="bz_component_column nowrap">
+        	<span title="FW-Tele-VT">FW-Tele-VT
+        	</span>
+    	</td>
+    <td class="bz_assigned_to_column nowrap">
+        	<span title="tianhong.zhao@spreadtrum.com">tianhong.zhao@spreadtrum.com
+        	</span>
+    	</td>
+    <td class="bz_bug_status_column nowrap">
+        	<span title="Fixed">Fixed
+        	</span>
+    	</td>
+    <td class="bz_resolution_column nowrap">
+        	<span title="---">---
+        	</span>
+    	</td>
+    <td class="bz_short_desc_column">
+        	<a href="http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=652317">[FT_CS][SharkL2][9850ka][7.0_trunk][CMCC][入库预测][1.1.6][LTE稳定性攻关][Block][Voice]好点视频，通话过程中，双端视频画面卡住后无声
+        	</a>
+    	</td>
+    <td class="bz_changeddate_column nowrap">Thu 10:35
+    	</td>
+    <td class="bz_elapsed_day_column nowrap">2
+    	</td>
+    <td class="bz_cf_come_from_column nowrap">FT
+    	</td>
+
+</tr>
+<tr id="b651950" class="bz_bugitem
+    	bz_2-Major    	bz_3-Normal_Queue    	bz_Closed    	bz_FIXED    	bz_secure    	bz_secure_mode_manual    	bz_row_even    	">
+
+    	<td>2</td>
+    	<td class="first-child bz_id_column ">
+      	<a href="http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=651950">651950</a>
+      <span class="bz_default_hidden">[SEC]</span>
+    	</td>
+
+    <td class="bz_product_column nowrap">
+        	<span title="Sprdroid_7.0_SharkL2">Sprdroid_7.0_SharkL2
+        	</span>
+    	</td>
+    <td class="bz_component_column nowrap">
+        	<span title="FW-Tele-Call">FW-Tele-Call
+        	</span>
+    	</td>
+    <td class="bz_assigned_to_column nowrap">
+        	<span title="Jon.Wang@spreadtrum.com">Jon.Wang@spreadtrum.com
+        	</span>
+    	</td>
+    <td class="bz_bug_status_column nowrap">
+        	<span title="Closed">Closed
+        	</span>
+    	</td>
+    <td class="bz_resolution_column nowrap">
+        	<span title="FIXED">FIXE
+        	</span>
+    	</td>
+    <td class="bz_short_desc_column">
+        	<a href="http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=651950">[FT_CS][SharkL2][9850ka][7.0_trunk][CMCC][入库预测][其他][LTE稳定性攻关][Block]csfb终端拨打volte终端，接听后csfb端无声
+        	</a>
+    	</td>
+    <td class="bz_changeddate_column nowrap">Tue 15:04
+    	</td>
+    <td class="bz_elapsed_day_column nowrap">0
+    	</td>
+    <td class="bz_cf_come_from_column nowrap">FT
+    	</td>
+
+</tr>
+<tr id="b652140" class="bz_bugitem
+    	bz_1-Critical    	bz_3-Normal_Queue    	bz_Closed    	bz_FIXED    	bz_secure    	bz_secure_mode_manual    	bz_row_odd    	">
+
+    	<td>3</td>
+    	<td class="first-child bz_id_column ">
+      	<a href="http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=652140">652140</a>
+      <span class="bz_default_hidden">[SEC]</span>
+    	</td>
+
+    <td class="bz_product_column nowrap">
+        	<span title="Sprdroid_7.0_SharkL2">Sprdroid_7.0_SharkL2
+        	</span>
+    	</td>
+    <td class="bz_component_column nowrap">
+        	<span title="FW-Stability">FW-Stability
+        	</span>
+    	</td>
+    <td class="bz_assigned_to_column nowrap">
+        	<span title="Yutao.Mu@spreadtrum.com">Yutao.Mu@spreadtrum.com
+        	</span>
+    	</td>
+    <td class="bz_bug_status_column nowrap">
+        	<span title="Closed">Closed
+        	</span>
+    	</td>
+    <td class="bz_resolution_column nowrap">
+        	<span title="FIXED">FIXE
+        	</span>
+    	</td>
+    <td class="bz_short_desc_column">
+        	<a href="http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=652140">[FT_CS][SharkL2][9850ka][7.0_trunk][CMCC][入库预测][Stability][LTE稳定性攻关][Block]终端待机时出现assert595 File:  dspintisr.c Line:  595 PASSERT((FALSE)) &gt; dsp assert 0x4509,0x4008,0x1a,0x45d7
+        	</a>
+    	</td>
+    <td class="bz_changeddate_column nowrap">Tue 15:12
+    	</td>
+    <td class="bz_elapsed_day_column nowrap">0
+    	</td>
+    <td class="bz_cf_come_from_column nowrap">FT
+    	</td>
+
+</tr>
+
+
+</tbody></table>
+
+
+
+
+<span class="bz_result_count">3 bugs found.
+  </span>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="buglist_menu">
+      <div class="bz_query_buttons">
+        <form method="post" action="http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi">
+          <input type="hidden" name="id" value="652317,651950,652140">
+          <input type="hidden" name="format" value="multiple">
+          <input type="submit" id="long_format" value="Long Format">
+        </form>
+
+          <form method="post" action="http://bugzilla.spreadtrum.com/bugzilla/summarize_time.cgi">
+            <input type="hidden" name="id" value="652317,651950,652140">
+            <input type="submit" id="timesummary" value="Time Summary">
+          </form>
+
+        <form method="post" action="http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi">
+          <input type="hidden" name="ctype" value="xml">
+            <input type="hidden" name="id" value="652317">
+            <input type="hidden" name="id" value="651950">
+            <input type="hidden" name="id" value="652140">
+          <input type="hidden" name="excludefield" value="attachmentdata">
+          <button type="submit" id="xml">
+            <img src="./Bug List_files/xml.png" width="24" height="24" alt="XML" title="XML Format">
+          </button>
+        </form>
+      </div>
+      <div class="bz_query_links">
+        <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;ctype=csv&amp;human=1"><img title="CSV Format" alt="CSV" src="./Bug List_files/csv.png" height="24" width="24"></a>
+        <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;title=Bug%20List&amp;ctype=atom"><img title="Feed Format" alt="Feed" src="./Bug List_files/rss.png" height="24" width="24"></a>
+        <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;ctype=ics"><img title="iCal Format" alt="iCal" src="./Bug List_files/ical.png" height="24" width="24"></a>
+        <button type="button" id="change_columns" onclick="document.location=&#39;colchange.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;query_based_on=&#39;">
+            Change Columns</button>
+
+
+          <button type="button" id="mass_change" onclick="document.location=&#39;buglist.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=bug_status%2Cpriority%2Cassigned_to%2Cbug_id&amp;tweak=1&#39;">
+            Change Several Bugs at Once</button>
+
+          <button type="button" id="email_assignees" onclick="document.location=&#39;mailto:Jon.Wang@spreadtrum.com,Yutao.Mu@spreadtrum.com,tianhong.zhao@spreadtrum.com&#39;">
+            Send Mail to Bug Assignees</button>
+
+        
+      </div>
+      <br>
+    <div class="bz_query_edit">
+      <button type="button" id="edit_search" onclick="document.location=&#39;query.cgi?bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&#39;">
+          Edit Search</button>
+    </div>
+
+      <div class="bz_query_remember">
+        <form method="get" action="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi">
+          <input type="submit" id="remember" value="Remember search"> as
+          <input type="hidden" name="newquery" value="bug_id=652317%2C651950%2C652140&amp;list_id=15769282&amp;query_format=advanced&amp;order=bug_status%2Cpriority%2Cassigned_to%2Cbug_id">
+          <input type="hidden" name="cmdtype" value="doit">
+          <input type="hidden" name="remtype" value="asnamed">
+          <input type="hidden" name="token" value="1489846732-46SEEas9MfDB2zmsWphKvCa8y8JJttZe4HW6L6mKc9E">
+          <input type="text" id="save_newqueryname" name="newqueryname" size="20" title="New query name" value="">
+        </form>
+      </div>
+  </div>
+
+  <p class="bz_query_single_product"><a href="http://bugzilla.spreadtrum.com/bugzilla/enter_bug.cgi?product=Sprdroid_7.0_SharkL2">File
+    a new bug
+     in the
+     "Sprdroid_7.0_SharkL2" product</a>
+  </p>
+
+
+
+
+</div>
+
+    <div id="footer">
+      <div class="intro"></div>
+<ul id="useful-links">
+  <li id="links-actions"><ul class="links">
+  <li><a href="http://bugzilla.spreadtrum.com/bugzilla/">Home</a></li>
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/enter_bug.cgi">New</a></li>
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/describecomponents.cgi">Browse</a></li>
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/query.cgi">Search</a></li>
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/page.cgi?id=productsummary.html">Product Summary</a></li>
+
+  <li class="form">
+    <span class="separator">| </span>
+    <form action="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi" method="get" onsubmit="if (this.quicksearch.value == &#39;&#39;)
+                  { alert(&#39;Please enter one or more search terms first.&#39;);
+                    return false; } return true;">
+    <input class="txt" type="text" id="quicksearch_bottom" name="quicksearch" title="Quick Search" value="">
+    <input class="btn" type="submit" value="Search" id="find_bottom"></form>
+  <a href="http://bugzilla.spreadtrum.com/bugzilla/page.cgi?id=quicksearch.html" title="Quicksearch Help">[?]</a></li>
+
+  <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/report.cgi">Reports</a></li>
+
+  <li>
+      <span class="separator">| </span>
+        <a href="http://bugzilla.spreadtrum.com/bugzilla/request.cgi?requester=huoln%40spreadst.com&amp;requestee=huoln%40spreadst.com&amp;do_union=1&amp;group=type&amp;action=queue">My Requests</a></li>
+
+    <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/userprefs.cgi">Preferences</a></li>
+      <li><span class="separator">| </span><a href="http://bugzilla.spreadtrum.com/bugzilla/admin.cgi">Administration</a></li>
+
+
+    <li>
+      <span class="separator">| </span>
+        <a href="http://bugzilla.spreadtrum.com/bugzilla/index.cgi?logout=1">Log&nbsp;out</a>
+        huoln@spreadst.com</li>
+</ul>
+  </li>
+
+  
+
+    <li id="links-saved">
+      <ul class="links">
+          <li>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?resolution=---&amp;emailassigned_to1=1&amp;emailreporter1=1&amp;emailtype1=exact&amp;email1=huoln%40spreadst.com">My Bugs</a>
+          </li>
+
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=44">44</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=6.0-whale2">6.0-whale2</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=7.0-Trunk">7.0-Trunk</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Analysis_Solution%E5%A1%AB%E5%86%99">Analysis_Solution填写</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=bug">bug</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=cmadmin">cmadmin</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=cmcc">cmcc</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=comment">comment</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=CQ">CQ</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=customer-2-1">customer-2-1</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=customer-2-1-ST">customer-2-1-ST</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=customer-3-%E5%91%A8%E6%8A%A5">customer-3-周报</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=customer-3-%E6%9C%88%E6%8A%A5">customer-3-月报</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=customer-3-%E6%9C%88%E6%8A%A5-CD">customer-3-月报-CD</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=customer_Open_ST">customer_Open_ST</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=daily-New">daily-New</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=daily-new-all">daily-new-all</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Daily_Resolved-1">Daily_Resolved-1</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Daily_Resolved-%E6%9C%88">Daily_Resolved-月</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=dup">dup</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Gerrit-aob">Gerrit-aob</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Gerrit-aob-cd">Gerrit-aob-cd</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Good_Sample_Analysis_Solution">Good_Sample_Analysis_Solution</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=hhhh">hhhh</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Jiaobu_%E5%85%83%E5%BF%83">Jiaobu_元心</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Jiaobu_%E5%85%83%E5%BF%83_12%E7%BA%A7">Jiaobu_元心_12级</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Jiaobu_%E5%85%83%E5%BF%83_ptr">Jiaobu_元心_ptr</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=open%E8%B6%8510%E5%A4%A9">open超10天</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Phase2.5%201%2B2%E9%81%97%E7%95%99">Phase2.5 1+2遗留</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=PIKE%20MR1">PIKE MR1</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=PLD%E6%B5%B7%E5%A4%96%E5%9C%BA%E6%B5%8B%E8%BF%BD%E8%B8%AA-">PLD海外场测追踪-</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=ptr5.1">ptr5.1</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=Resoved_all_date_empty">Resoved_all_date_empty</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5B2016.9%E6%9C%88~Now%E7%A0%94%E5%8F%91%E8%87%AA%E6%8F%90Buglist-ST%5D">[2016.9月~Now研发自提Buglist-ST]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5Bsharkl27.0%5D">[sharkl27.0]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST-Android7.0%5D">[ST-Android7.0]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST-FT%5D">[ST-FT]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST-iwhale2%5D">[ST-iwhale2]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST-Marlin2-6.0%5D">[ST-Marlin2-6.0]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST-PikeL%5D">[ST-PikeL]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST-pikeL_sfphone%5D">[ST-pikeL_sfphone]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST-Tshark3_mr1%5D">[ST-Tshark3_mr1]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST-whale2-6.0%5D">[ST-whale2-6.0]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%5BST%E9%97%AE%E9%A2%98%5D">[ST问题]</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%E5%BE%85%E8%A7%A3%E5%86%B3">待解决</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%E6%9C%89%E6%8F%90%E4%BA%A4">有提交</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%E6%9C%AC%E5%91%A8%E6%8E%A8%E8%8D%90%EF%BC%9A">本周推荐：</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%E6%9C%AC%E5%91%A8%E8%A7%A3%E5%86%B3">本周解决</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%E8%B6%85%E6%9C%9F%E9%97%AE%E9%A2%98%E5%BE%85%E5%85%B3%E9%97%AD%EF%BC%88Resolved%EF%BC%89">超期问题待关闭（Resolved）</a>
+          </li>
+          <li><span class="separator">| </span>
+            <a href="http://bugzilla.spreadtrum.com/bugzilla/buglist.cgi?cmdtype=runnamed&amp;namedcmd=%E9%99%8D%E7%BA%A7%E9%97%AE%E9%A2%98%E5%88%97%E8%A1%A8">降级问题列表</a>
+          </li>
+      </ul>
+    </li>
+
+
+
+  
+</ul>
+
+      <div class="outro"></div>
+    </div>
+
+  
+</body></html>
