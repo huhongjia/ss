@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HtmlRegexpUtil {
+
     private final static String regxpForHtml = "<([^>]*)>"; // 过滤所有以<开头以>结尾的标签
 
     private final static String regxpForImgTag = "<\\s*img\\s+([^>]*)\\s*>"; // 找出IMG标签
@@ -38,7 +39,7 @@ public class HtmlRegexpUtil {
                     tmp = tmp.substring(0, idx);
                 }
 
-                Meta meta = new Meta(i, tmp);
+                Meta meta = new Meta("", i, tmp);
                 data.add(meta);
             }
 
@@ -66,20 +67,20 @@ public class HtmlRegexpUtil {
         for (int i = 0; i <= input.length() - 1; i++) {
             c = input.charAt(i);
             switch (c) {
-            case '<':
-                filtered.append("&lt;");
-                break;
-            case '>':
-                filtered.append("&gt;");
-                break;
-            case '"':
-                filtered.append("&quot;");
-                break;
-            case '&':
-                filtered.append("&amp;");
-                break;
-            default:
-                filtered.append(c);
+                case '<':
+                    filtered.append("&lt;");
+                    break;
+                case '>':
+                    filtered.append("&gt;");
+                    break;
+                case '"':
+                    filtered.append("&quot;");
+                    break;
+                case '&':
+                    filtered.append("&amp;");
+                    break;
+                default:
+                    filtered.append(c);
             }
 
         }
@@ -101,18 +102,18 @@ public class HtmlRegexpUtil {
             for (int i = 0; i <= input.length() - 1; i++) {
                 c = input.charAt(i);
                 switch (c) {
-                case '>':
-                    flag = true;
-                    break;
-                case '<':
-                    flag = true;
-                    break;
-                case '"':
-                    flag = true;
-                    break;
-                case '&':
-                    flag = true;
-                    break;
+                    case '>':
+                        flag = true;
+                        break;
+                    case '<':
+                        flag = true;
+                        break;
+                    case '"':
+                        flag = true;
+                        break;
+                    case '&':
+                        flag = true;
+                        break;
                 }
             }
         }
@@ -224,15 +225,16 @@ public class HtmlRegexpUtil {
                     for (Meta meta : metas) {
                         if (meta.getIndex() == i) {
                             String url = matchLink(tmp);
-                            meta.setUrl(url);
-                            info.getMetas().put(meta.name, meta);
+
+                            Meta mt = new Meta(url, meta.getIndex(), meta.getName());
+                            info.getMetas().put(mt.getName(), mt);
                             break;
                         }
                     }
 
                 }
             }
-            
+
             result1 = matcher.find();
 
             if (i >= metas.size()) {

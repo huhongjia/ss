@@ -16,7 +16,8 @@ public class Meta {
         this.url = url;
     }
 
-    public Meta(int index, String name) {
+    public Meta(String url, int index, String name) {
+        this.url = url;
         this.index = index;
         this.name = name;
     }
