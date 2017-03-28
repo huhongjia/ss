@@ -85,6 +85,8 @@ public class SpiderMain {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoInput(true);
         connection.setDoOutput(true);// 允许连接提交信息
+        connection.setConnectTimeout(60000);
+        connection.setReadTimeout(60000);
         connection.setRequestMethod("POST");// 网页默认“GET”提交方式
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         connection.setRequestProperty("Accept",
@@ -146,6 +148,8 @@ public class SpiderMain {
         connection.setRequestMethod("GET");// 网页默认“GET”提交方式
         connection.setDoInput(true);
         connection.setDoOutput(true);// 允许连接提交信息
+        connection.setConnectTimeout(60000);
+        connection.setReadTimeout(60000);
         connection.setRequestProperty("Accept",
                 "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");

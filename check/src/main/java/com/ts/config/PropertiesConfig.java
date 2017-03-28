@@ -6,12 +6,12 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesConfig {
-    public Properties loadConfig(String[] args) throws Exception {
+    public Properties loadConfig(String[] args,String fileName) throws Exception {
         Properties pro = new Properties();
 
         InputStream in = null;
         if (args == null || args.length == 0) {
-            in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+            in = this.getClass().getClassLoader().getResourceAsStream(fileName);
 
         } else {
             in = new FileInputStream(new File(args[0]));

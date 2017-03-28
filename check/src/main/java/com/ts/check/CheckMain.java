@@ -1,8 +1,6 @@
 package com.ts.check;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,7 +33,7 @@ public class CheckMain {
     }
 
     private void start(String[] args) throws Exception {
-        Properties p = new PropertiesConfig().loadConfig(args);
+        Properties p = new PropertiesConfig().loadConfig(args, "config.properties");
         System.out.println(p.get("source"));
 
         String sourceFiles = p.getProperty("source");
@@ -93,23 +91,6 @@ public class CheckMain {
             System.out.println("写入完毕：" + outFile);
 
         }
-    }
-    
-    public Properties loadConfig(String[] args) throws Exception {
-        Properties pro = new Properties();
-
-        InputStream in = null;
-        if (args == null || args.length == 0) {
-            in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
-
-        } else {
-            in = new FileInputStream(new File(args[0]));
-        }
-
-        pro.load(in);
-        in.close();
-
-        return pro;
     }
 
     /**

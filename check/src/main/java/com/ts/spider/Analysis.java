@@ -16,7 +16,7 @@ import com.ts.config.PropertiesConfig;
 public class Analysis {
 
     public static void main(String[] args) throws Exception {
-        Properties p = new PropertiesConfig().loadConfig(args);
+        Properties p = new PropertiesConfig().loadConfig(args,"spider.properties");
 
         String fileName = "/Users/apple/git/ss/check/Product Dashboard_ all.htm";
         new Analysis().analysis(fileName, p, "iREd1fuUyB");
@@ -85,6 +85,8 @@ public class Analysis {
         URL url = new URL(urlStr);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");// 网页默认“GET”提交方式
+        connection.setConnectTimeout(60000);
+        connection.setReadTimeout(60000);
         connection.setDoInput(true);
         connection.setDoOutput(true);// 允许连接提交信息
         connection.setRequestProperty("Accept",
