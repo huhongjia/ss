@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -16,7 +17,7 @@ import com.ts.config.PropertiesConfig;
 public class Analysis {
 
     public static void main(String[] args) throws Exception {
-        Properties p = new PropertiesConfig().loadConfig(args,"spider.properties");
+        Properties p = new PropertiesConfig().loadConfig(args, "spider.properties");
 
         String fileName = "/Users/apple/git/ss/check/Product Dashboard_ all.htm";
         new Analysis().analysis(fileName, p, "iREd1fuUyB");
@@ -41,9 +42,17 @@ public class Analysis {
                 }
 
                 // 抓取BUG详情
-                List<BugInfo> bugs = spiderBugDetail(meta.getUrl(), p, cookie);
+                long s = System.currentTimeMillis();
+                List<BugInfo> bugs = spiderBugDetail(meta.getUrl(), p, cookie,info.getName());
+                if(bugs == null|| bugs.size() == 0){
+                    String data = "抓取失败："+info.getName()+"#"+meta.getUrl()+"\r\n";
+                    String errorFile = p.getProperty("data.dest") + File.separator + "error.txt";
+                    FileUtils.writeFile(errorFile, data);
+                }
+                long e = System.currentTimeMillis();
+
                 System.out.println("[" + i + "/" + infos.size() + "]" + info.getName() + " find " + clm + ":"
-                        + bugs.size());
+                        + bugs.size() + ",耗时：" + (e - s) / 1000 + "秒，当前时间：" + new Date());
 
                 StringBuffer sb = new StringBuffer();
                 for (BugInfo bug : bugs) {
@@ -62,9 +71,30 @@ public class Analysis {
         System.out.println("***********<end spdier single user>**********");
     }
 
-    private static List<BugInfo> spiderBugDetail(String url, Properties p, String cookie) throws Exception {
+    private static List<BugInfo> spiderBugDetail(String url, Properties p, String cookie, String name) throws Exception {
 
-        String data = spiderContent(url, cookie);
+        String data = "";
+        try {
+            data = spiderContent(url, cookie, p);
+        } catch (Exception e) {
+            int retryCnt = 1;
+            while (retryCnt < 3) {
+                System.out.println("[" + new Date() + "]开始重试，重试次数：" + retryCnt + "，请求url:" + url);
+                try {
+                    data = spiderContent(url, cookie, p);
+                    if (!"".equals(data)) {
+                        break;
+                    }
+                } catch (Exception e2) {}
+
+                retryCnt++;
+            }
+
+            if ("".equals(data)) {
+                return new ArrayList<BugInfo>();
+            }
+
+        }
 
         // String fileName = "/Users/apple/git/ss/check/Bug List.htm";
         // String data = loadFile(fileName);
@@ -80,13 +110,14 @@ public class Analysis {
         return HtmlRegexpUtil.parseBugDetail(content, metas);
     }
 
-    private static String spiderContent(String urlStr, String cookie) throws Exception {
+    private static String spiderContent(String urlStr, String cookie, Properties p) throws Exception {
+        Integer timeOut = Integer.valueOf(p.getProperty("timeout", SpiderMain.TIME_OUT + ""));
 
         URL url = new URL(urlStr);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");// 网页默认“GET”提交方式
-        connection.setConnectTimeout(60000);
-        connection.setReadTimeout(60000);
+        connection.setConnectTimeout(timeOut);
+        connection.setReadTimeout(timeOut);
         connection.setDoInput(true);
         connection.setDoOutput(true);// 允许连接提交信息
         connection.setRequestProperty("Accept",

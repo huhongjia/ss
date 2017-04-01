@@ -20,10 +20,23 @@ import java.util.Properties;
  */
 public class SpiderMain {
 
+    public static final int TIME_OUT = 60000;
+
+    static {
+        try {
+            System.setProperty("sun.net.client.defaultConnectTimeout", TIME_OUT + "");
+            System.setProperty("sun.net.client.defaultReadTimeout", TIME_OUT + "");
+        } catch (Exception e) {}
+
+    }
+
     public static void main(String[] args) throws Exception {
+
         Properties p = new SpiderMain().loadConfig(args);
 
+        long s = System.currentTimeMillis();
         String cookie = login(p);
+        long e = System.currentTimeMillis();
 
         String Bugzilla_logincookie = "";
         String[] arr = cookie.split(";");
@@ -35,25 +48,25 @@ public class SpiderMain {
             }
         }
 
-        System.out.println("Get login Cookie:"+Bugzilla_logincookie);
-        
-        if(Bugzilla_logincookie == "" || Bugzilla_logincookie == null){
+        System.out.println("Get login Cookie:" + Bugzilla_logincookie + "，耗时：" + (e - s) / 100 + "秒");
+
+        if (Bugzilla_logincookie == "" || Bugzilla_logincookie == null) {
             System.out.println("登陆校验失败，请修改用户名或者密码重试!");
         }
-        
-        long s = System.currentTimeMillis();
-//        String content = spiderContent(from, to, Bugzilla_logincookie);
-        // 生成文件
-        long e = System.currentTimeMillis();
-//        String outFile = p.getProperty("data.dest") + File.separator + "bug_all.html";
-        String fileName =p.getProperty("data.source");
-//        FileUtils.writeFile(fileName, content);
-        
-//        System.out.println("Spider bug list,cost:"+(e-s)/1000+",生成文件："+outFile);
 
-        new Analysis().analysis(fileName, p,Bugzilla_logincookie);
+        //        long s = System.currentTimeMillis();
+        //        String content = spiderContent(from, to, Bugzilla_logincookie);
+        // 生成文件
+        //        long e = System.currentTimeMillis();
+        //        String outFile = p.getProperty("data.dest") + File.separator + "bug_all.html";
+        String fileName = p.getProperty("data.source");
+        //        FileUtils.writeFile(fileName, content);
+
+        //        System.out.println("Spider bug list,cost:"+(e-s)/1000+",生成文件："+outFile);
+
+        new Analysis().analysis(fileName, p, Bugzilla_logincookie);
     }
-    
+
     public Properties loadConfig(String[] args) throws Exception {
         Properties pro = new Properties();
 
@@ -77,7 +90,7 @@ public class SpiderMain {
     }
 
     /**
-     * @param p 
+     * @param p
      * @return
      */
     private static String login(Properties p) throws Exception {
@@ -85,8 +98,8 @@ public class SpiderMain {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoInput(true);
         connection.setDoOutput(true);// 允许连接提交信息
-        connection.setConnectTimeout(60000);
-        connection.setReadTimeout(60000);
+        connection.setConnectTimeout(TIME_OUT);
+        connection.setReadTimeout(TIME_OUT);
         connection.setRequestMethod("POST");// 网页默认“GET”提交方式
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         connection.setRequestProperty("Accept",
@@ -104,11 +117,11 @@ public class SpiderMain {
                         "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
 
         StringBuffer sb = new StringBuffer();
-        sb.append("Bugzilla_login="+p.getProperty("login.username"));
-        sb.append("&Bugzilla_password="+p.getProperty("login.password"));
+        sb.append("Bugzilla_login=" + p.getProperty("login.username"));
+        sb.append("&Bugzilla_password=" + p.getProperty("login.password"));
         sb.append("&Bugzilla_restrictlogin=on");
         sb.append("&GoAheadAndLogIn=Log in");
-//        sb.append("&Bugzilla_login_token=1489829334-HTSZNH-rJBH-Yj8P72Fm0DP9vfRrWZFkAPcHzgJ61aI");
+        //        sb.append("&Bugzilla_login_token=1489829334-HTSZNH-rJBH-Yj8P72Fm0DP9vfRrWZFkAPcHzgJ61aI");
         connection.setRequestProperty("Content-Length", String.valueOf(sb.toString().length()));
 
         OutputStream os = connection.getOutputStream();
@@ -148,8 +161,8 @@ public class SpiderMain {
         connection.setRequestMethod("GET");// 网页默认“GET”提交方式
         connection.setDoInput(true);
         connection.setDoOutput(true);// 允许连接提交信息
-        connection.setConnectTimeout(60000);
-        connection.setReadTimeout(60000);
+        connection.setConnectTimeout(TIME_OUT);
+        connection.setReadTimeout(TIME_OUT);
         connection.setRequestProperty("Accept",
                 "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
