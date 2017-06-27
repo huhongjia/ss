@@ -6,10 +6,9 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.ts.check.FileUtils;
 import com.ts.config.PropertiesConfig;
@@ -19,8 +18,8 @@ public class Analysis {
     public static void main(String[] args) throws Exception {
         Properties p = new PropertiesConfig().loadConfig(args, "spider.properties");
 
-        String fileName = "/Users/apple/git/ss/check/Product Dashboard_ all.htm";
-        new Analysis().analysis(fileName, p, "iREd1fuUyB");
+        String fileName = "D:\\\\data\\\\Product Dashboard_ all1.html";
+        new Analysis().analysis(fileName, p, "hNkt8GU3ib");
     }
 
     private static void processUserInfo(List<UserInfo> infos, Properties p, String cookie) throws Exception {
@@ -33,6 +32,12 @@ public class Analysis {
             file.delete();
         }
 
+        String detailFile = p.getProperty("data.dest") + File.separator + "result_detail.csv";
+        File dfile = new File(detailFile);
+        if (dfile.exists()) {
+            dfile.delete();
+        }
+
         for (int i = 0; i < infos.size(); i++) {
             UserInfo info = infos.get(i);
             for (String clm : colums) {
@@ -43,9 +48,9 @@ public class Analysis {
 
                 // 抓取BUG详情
                 long s = System.currentTimeMillis();
-                List<BugInfo> bugs = spiderBugDetail(meta.getUrl(), p, cookie,info.getName());
-                if(bugs == null|| bugs.size() == 0){
-                    String data = "抓取失败："+info.getName()+"#"+meta.getUrl()+"\r\n";
+                List<BugInfo> bugs = spiderBugDetail(meta.getUrl(), p, cookie, info.getName());
+                if (bugs == null || bugs.size() == 0) {
+                    String data = "抓取失败：" + info.getName() + "#" + meta.getUrl() + "\r\n";
                     String errorFile = p.getProperty("data.dest") + File.separator + "error.txt";
                     FileUtils.writeFile(errorFile, data);
                 }
@@ -66,12 +71,83 @@ public class Analysis {
 
                 // 追加写入
                 FileUtils.writeFileAppend(file, sb.toString());
+
+                if (!clm.equals("COMMENT")) {
+                    continue;
+                }
+                StringBuffer sbNew = new StringBuffer();
+                for (int j = 0; j < bugs.size(); j++) {
+                    BugInfo bug = bugs.get(j);
+
+                    String product = bug.getMetas().get("Product");
+                    String url = "http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=" + bug.getId();
+                    System.out.println("抓取bug详情，[" + j + "/" + bugs.size() + "]" + bug.getId());
+
+                    Map<String, List<BugComment>> comments = spiderBugComment(url, p, cookie);
+                    List<BugComment> userComments = comments.get(info.getName());
+                    if (userComments == null || userComments.size() == 0) {
+                        continue;
+                    }
+
+                    for (BugComment comment : userComments) {
+                        Pattern p1 = Pattern.compile("\\[(.*?)\\]\\[(.*?)\\]\\[(.*?)\\]");
+                        Matcher m1 = p1.matcher(comment.getDesc());
+                        if (m1.find()) {
+                            comment.setMark(true);
+                        }
+
+                        sbNew.append(bug.getId()).append("|").append(comment.getUserName()).append("|").append(product)
+                                .append("|").append(comment.getLabel()).append("|")
+                                .append(comment.getTime().split(" ")[0]).append("|")
+                                .append(comment.getTime().split(" ")[1]).append("|").append(comment.getMark())
+                                .append("|").append(comment.getDesc()).append("\r\n");
+                    }
+                }
+                // 追加写入
+                FileUtils.writeFileAppend(dfile, sbNew.toString());
             }
         }
         System.out.println("***********<end spdier single user>**********");
     }
 
-    private static List<BugInfo> spiderBugDetail(String url, Properties p, String cookie, String name) throws Exception {
+    /**
+     * 抓取BUG 备注
+     * 
+     * @param p
+     * @param cookie
+     * @param url @return
+     */
+    private static Map<String, List<BugComment>> spiderBugComment(String url, Properties p, String cookie) {
+        List<BugComment> comments = new ArrayList<BugComment>();
+
+        String data = "";
+        try {
+            data = spiderContent(url, cookie, p);
+        } catch (Exception e) {
+            int retryCnt = 0;
+            while (retryCnt < 2) {
+                System.out.println("[" + new Date() + "]开始重试，重试次数：" + retryCnt + "，请求url:" + url);
+                try {
+                    data = spiderContent(url, cookie, p);
+                    if (!"".equals(data)) {
+                        break;
+                    }
+                } catch (Exception e2) {
+                }
+
+                retryCnt++;
+            }
+
+            if ("".equals(data)) {
+                return new HashMap<String, List<BugComment>>();
+            }
+        }
+
+        return HtmlRegexpUtil.parseBugComment(data);
+    }
+
+    private static List<BugInfo> spiderBugDetail(String url, Properties p, String cookie, String name)
+            throws Exception {
 
         String data = "";
         try {
@@ -85,7 +161,8 @@ public class Analysis {
                     if (!"".equals(data)) {
                         break;
                     }
-                } catch (Exception e2) {}
+                } catch (Exception e2) {
+                }
 
                 retryCnt++;
             }
@@ -129,9 +206,8 @@ public class Analysis {
         connection.setRequestProperty("Upgrade-Insecure-Requests", "1");
         connection.setRequestProperty("Cookie", "DEFAULTFORMAT=specific; Bugzilla_login=2195; Bugzilla_logincookie="
                 + cookie + "; PRODUCT_SUMMARY=all");
-        connection
-                .setRequestProperty("User-Agent",
-                        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+        connection.setRequestProperty("User-Agent",
+                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
 
         InputStreamReader isr = new InputStreamReader(connection.getInputStream());
         BufferedReader br = new BufferedReader(isr);
