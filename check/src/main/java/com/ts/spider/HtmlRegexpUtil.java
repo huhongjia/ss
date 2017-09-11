@@ -1,5 +1,6 @@
 package com.ts.spider;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -343,13 +344,11 @@ public class HtmlRegexpUtil {
             String desc = m3.group(2).trim();
             String label = m4.group(4).trim();
 
-
-
-            if(label.equals("Description")){
+            if (label.equals("Description")) {
                 continue;
             }
 
-            BugComment comment = new BugComment(name, time, desc,label);
+            BugComment comment = new BugComment(name, time, desc, label);
 
             List<BugComment> list = map.get(comment.getUserName());
             if (list == null) {

@@ -18,11 +18,12 @@ public class Analysis {
     public static void main(String[] args) throws Exception {
         Properties p = new PropertiesConfig().loadConfig(args, "spider.properties");
 
-        String fileName = "D:\\\\data\\\\Product Dashboard_ all1.html";
+        String fileName = "D:\\data\\Product Dashboard  all.htm";
         new Analysis().analysis(fileName, p, "hNkt8GU3ib");
     }
 
-    private static void processUserInfo(List<UserInfo> infos, Properties p, String cookie) throws Exception {
+    private static void processUserInfo(List<UserInfo> infos, Properties p, String cookie, String startDate,
+            String endDate) throws Exception {
         String[] colums = p.getProperty("data.colums").split(",");
         System.out.println("***********<start spdier single user>**********");
 
@@ -57,7 +58,7 @@ public class Analysis {
                 long e = System.currentTimeMillis();
 
                 System.out.println("[" + i + "/" + infos.size() + "]" + info.getName() + " find " + clm + ":"
-                        + bugs.size() + ",耗时：" + (e - s) / 1000 + "秒，当前时间：" + new Date());
+                        + bugs.size() + "  cost:" + (e - s) / 1000 + "s");
 
                 StringBuffer sb = new StringBuffer();
                 for (BugInfo bug : bugs) {
@@ -72,7 +73,8 @@ public class Analysis {
                 // 追加写入
                 FileUtils.writeFileAppend(file, sb.toString());
 
-                if (!clm.equals("COMMENT")) {
+                Boolean bool = Boolean.valueOf(p.getProperty("use.comment", "false"));
+                if (!clm.equals("COMMENT") || !bool) {
                     continue;
                 }
                 StringBuffer sbNew = new StringBuffer();
@@ -81,7 +83,7 @@ public class Analysis {
 
                     String product = bug.getMetas().get("Product");
                     String url = "http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=" + bug.getId();
-                    System.out.println("抓取bug详情，[" + j + "/" + bugs.size() + "]" + bug.getId());
+                    System.out.println("[" + j + "/" + bugs.size() + "]Spider bug->" + bug.getId());
 
                     Map<String, List<BugComment>> comments = spiderBugComment(url, p, cookie);
                     List<BugComment> userComments = comments.get(info.getName());
@@ -96,15 +98,21 @@ public class Analysis {
                             comment.setMark(true);
                         }
 
+                        String date = comment.getTime().split(" ")[0];
+                        if (!"".equals(startDate) && !"".equals(endDate)) {
+                            if (date.compareTo(startDate) < 0 || date.compareTo(endDate) > 0) {
+                                continue;
+                            }
+                        }
+
                         sbNew.append(bug.getId()).append("|").append(comment.getUserName()).append("|").append(product)
-                                .append("|").append(comment.getLabel()).append("|")
-                                .append(comment.getTime().split(" ")[0]).append("|")
+                                .append("|").append(comment.getLabel()).append("|").append(date).append(" ")
                                 .append(comment.getTime().split(" ")[1]).append("|").append(comment.getMark())
                                 .append("|").append(comment.getDesc()).append("\r\n");
                     }
                 }
                 // 追加写入
-                FileUtils.writeFileAppend(dfile, sbNew.toString());
+                FileUtils.writeFileAppend(dfile, sbNew.toString(), "UTF-8");
             }
         }
         System.out.println("***********<end spdier single user>**********");
@@ -126,7 +134,7 @@ public class Analysis {
         } catch (Exception e) {
             int retryCnt = 0;
             while (retryCnt < 2) {
-                System.out.println("[" + new Date() + "]开始重试，重试次数：" + retryCnt + "，请求url:" + url);
+                System.out.println("[" + new Date() + "start retry：" + retryCnt + "，request url:" + url);
                 try {
                     data = spiderContent(url, cookie, p);
                     if (!"".equals(data)) {
@@ -155,7 +163,7 @@ public class Analysis {
         } catch (Exception e) {
             int retryCnt = 1;
             while (retryCnt < 3) {
-                System.out.println("[" + new Date() + "]开始重试，重试次数：" + retryCnt + "，请求url:" + url);
+                System.out.println("[" + new Date() + "]start retry：" + retryCnt + "，request url:" + url);
                 try {
                     data = spiderContent(url, cookie, p);
                     if (!"".equals(data)) {
@@ -180,6 +188,9 @@ public class Analysis {
 
         String entTag = "</tr>";
         int end = data.indexOf(entTag);
+        if (end == -1) {
+            return new ArrayList<BugInfo>();
+        }
         String head = data.substring(0, end);
 
         List<Meta> metas = HtmlRegexpUtil.parseATag(head);
@@ -253,10 +264,24 @@ public class Analysis {
         List<Meta> metas = analysisHead(content);
         List<UserInfo> infos = analysisData(content, metas);
 
-        List<UserInfo> list = filterLocalUsers(infos, p);
-        System.out.println("过滤前人员总数：" + infos.size() + ",过滤后：" + list.size());
+        Matcher m1 = Pattern.compile("<input name=\"date_from\" size=\"10\" id=\"date_from\" value=\"(.*?)\"")
+                .matcher(content);
+        String startDate = "";
+        if (m1.find()) {
+            startDate = m1.group(1);
+        }
 
-        processUserInfo(list, p, cookie);
+        Matcher m2 = Pattern.compile("<input name=\"date_to\" size=\"10\" id=\"date_to\" value=\"(.*?)\"")
+                .matcher(content);
+        String endDate = "";
+        if (m2.find()) {
+            endDate = m2.group(1);
+        }
+
+        List<UserInfo> list = filterLocalUsers(infos, p);
+        System.out.println("Persion size:" + infos.size() + ",after filter:" + list.size());
+
+        processUserInfo(list, p, cookie, startDate, endDate);
     }
 
     private List<UserInfo> filterLocalUsers(List<UserInfo> infos, Properties p) {

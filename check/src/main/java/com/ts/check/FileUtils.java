@@ -44,4 +44,12 @@ public class FileUtils {
 
     }
 
+    public static void writeFileAppend(File file, String data,String encode) throws Exception {
+        OutputStreamWriter write = new OutputStreamWriter(new FileOutputStream(file,true));
+        BufferedWriter bw = new BufferedWriter(write);
+        bw.write(data);
+        bw.close();
+
+    }
+
 }

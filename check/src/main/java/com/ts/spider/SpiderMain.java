@@ -48,7 +48,7 @@ public class SpiderMain {
             }
         }
 
-        System.out.println("Get login Cookie:" + Bugzilla_logincookie + "，耗时：" + (e - s) / 100 + "秒");
+        System.out.println("Get login Cookie:" + Bugzilla_logincookie + ",cost:" + (e - s) / 100 + "s");
 
         if (Bugzilla_logincookie == "" || Bugzilla_logincookie == null) {
             System.out.println("登陆校验失败，请修改用户名或者密码重试!");
