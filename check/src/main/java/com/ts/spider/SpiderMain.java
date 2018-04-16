@@ -38,13 +38,13 @@ public class SpiderMain {
         String[] arr = cookie.split(";");
         for (String tmp : arr) {
             String[] kvs = tmp.trim().split("=");
-            if (kvs[0].equals("Bugzilla_login_request_cookie")) {
+            if (kvs[0].equals("Bugzilla_logincookie")) {
                 Bugzilla_logincookie = kvs[1];
                 break;
             }
         }
 
-        System.out.println("Get login Cookie:" + Bugzilla_logincookie + ",cost:" + (e - s) / 100 + "s");
+        System.out.println("[Cookie]:" + Bugzilla_logincookie + ",others:" + cookie + ",cost:" + (e - s) / 100 + "s");
 
         if (Bugzilla_logincookie == "" || Bugzilla_logincookie == null) {
             System.out.println("登陆校验失败，请修改用户名或者密码重试!");
