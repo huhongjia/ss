@@ -82,7 +82,7 @@ public class Analysis {
                     BugInfo bug = bugs.get(j);
 
                     String product = bug.getMetas().get("Product");
-                    String url = "http://bugzilla.spreadtrum.com/bugzilla/show_bug.cgi?id=" + bug.getId();
+                    String url = "http://bugzilla.unisoc.com/bugzilla/show_bug.cgi?id=" + bug.getId();
                     System.out.println("[" + j + "/" + bugs.size() + "]Spider bug->" + bug.getId());
 
                     Map<String, List<BugComment>> comments = spiderBugComment(url, p, cookie);
@@ -213,7 +213,7 @@ public class Analysis {
         connection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
         connection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6");
         connection.setRequestProperty("Connection", "keep-alive");
-        connection.setRequestProperty("Host", "bugzilla.spreadtrum.com");
+        connection.setRequestProperty("Host", "bugzilla.unisoc.com");
         connection.setRequestProperty("Upgrade-Insecure-Requests", "1");
         connection.setRequestProperty("Cookie", "DEFAULTFORMAT=specific; Bugzilla_login=2195; Bugzilla_logincookie="
                 + cookie + "; PRODUCT_SUMMARY=all");

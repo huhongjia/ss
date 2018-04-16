@@ -3,12 +3,7 @@
  */
 package com.ts.spider;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Properties;
@@ -26,7 +21,8 @@ public class SpiderMain {
         try {
             System.setProperty("sun.net.client.defaultConnectTimeout", TIME_OUT + "");
             System.setProperty("sun.net.client.defaultReadTimeout", TIME_OUT + "");
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
     }
 
@@ -42,7 +38,7 @@ public class SpiderMain {
         String[] arr = cookie.split(";");
         for (String tmp : arr) {
             String[] kvs = tmp.trim().split("=");
-            if (kvs[0].equals("Bugzilla_logincookie")) {
+            if (kvs[0].equals("Bugzilla_login_request_cookie")) {
                 Bugzilla_logincookie = kvs[1];
                 break;
             }
@@ -54,15 +50,15 @@ public class SpiderMain {
             System.out.println("登陆校验失败，请修改用户名或者密码重试!");
         }
 
-        //        long s = System.currentTimeMillis();
-        //        String content = spiderContent(from, to, Bugzilla_logincookie);
+        // long s = System.currentTimeMillis();
+        // String content = spiderContent(from, to, Bugzilla_logincookie);
         // 生成文件
-        //        long e = System.currentTimeMillis();
-        //        String outFile = p.getProperty("data.dest") + File.separator + "bug_all.html";
+        // long e = System.currentTimeMillis();
+        // String outFile = p.getProperty("data.dest") + File.separator + "bug_all.html";
         String fileName = p.getProperty("data.source");
-        //        FileUtils.writeFile(fileName, content);
+        // FileUtils.writeFile(fileName, content);
 
-        //        System.out.println("Spider bug list,cost:"+(e-s)/1000+",生成文件："+outFile);
+        // System.out.println("Spider bug list,cost:"+(e-s)/1000+",生成文件："+outFile);
 
         new Analysis().analysis(fileName, p, Bugzilla_logincookie);
     }
@@ -94,7 +90,7 @@ public class SpiderMain {
      * @return
      */
     private static String login(Properties p) throws Exception {
-        URL url = new URL("http://bugzilla.spreadtrum.com/bugzilla/page.cgi");
+        URL url = new URL("http://bugzilla.unisoc.com/bugzilla/page.cgi");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoInput(true);
         connection.setDoOutput(true);// 允许连接提交信息
@@ -109,19 +105,18 @@ public class SpiderMain {
         connection.setRequestProperty("Cache-Control", "max-age=0");
         connection.setRequestProperty("Connection", "keep-alive");
         connection.setRequestProperty("Host", "bugzilla.spreadtrum.com");
-        connection.setRequestProperty("Origin", "http://bugzilla.spreadtrum.com");
-        connection.setRequestProperty("Referer", "http://bugzilla.spreadtrum.com/bugzilla/page.cgi");
+        connection.setRequestProperty("Origin", "http://bugzilla.unisoc.com");
+        connection.setRequestProperty("Referer", "http://bugzilla.unisoc.com/bugzilla/page.cgi");
         connection.setRequestProperty("Upgrade-Insecure-Requests", "1");
-        connection
-                .setRequestProperty("User-Agent",
-                        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+        connection.setRequestProperty("User-Agent",
+                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
 
         StringBuffer sb = new StringBuffer();
         sb.append("Bugzilla_login=" + p.getProperty("login.username"));
         sb.append("&Bugzilla_password=" + p.getProperty("login.password"));
         sb.append("&Bugzilla_restrictlogin=on");
         sb.append("&GoAheadAndLogIn=Log in");
-        //        sb.append("&Bugzilla_login_token=1489829334-HTSZNH-rJBH-Yj8P72Fm0DP9vfRrWZFkAPcHzgJ61aI");
+        // sb.append("&Bugzilla_login_token=1489829334-HTSZNH-rJBH-Yj8P72Fm0DP9vfRrWZFkAPcHzgJ61aI");
         connection.setRequestProperty("Content-Length", String.valueOf(sb.toString().length()));
 
         OutputStream os = connection.getOutputStream();
@@ -172,9 +167,8 @@ public class SpiderMain {
         connection.setRequestProperty("Upgrade-Insecure-Requests", "1");
         connection.setRequestProperty("Cookie", "DEFAULTFORMAT=specific; Bugzilla_login=2195; Bugzilla_logincookie="
                 + cookie + "; PRODUCT_SUMMARY=all");
-        connection
-                .setRequestProperty("User-Agent",
-                        "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
+        connection.setRequestProperty("User-Agent",
+                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
 
         InputStreamReader isr = new InputStreamReader(connection.getInputStream());
         BufferedReader br = new BufferedReader(isr);

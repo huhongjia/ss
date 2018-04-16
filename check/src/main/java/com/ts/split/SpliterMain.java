@@ -37,7 +37,12 @@ public class SpliterMain {
                 continue;
             }
 
-            Date date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(arr[4]);
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(arr[4]);
+            } catch (Exception e) {
+                date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(arr[4]);
+            }
             String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
 
             StringBuffer sb = resultMap.get(dateStr);
