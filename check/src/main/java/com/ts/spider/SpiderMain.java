@@ -38,7 +38,7 @@ public class SpiderMain {
         String[] arr = cookie.split(";");
         for (String tmp : arr) {
             String[] kvs = tmp.trim().split("=");
-            if (kvs[0].equals("Bugzilla_logincookie")) {
+            if (kvs[0].equals("Bugzilla_login_request_cookie")) {
                 Bugzilla_logincookie = kvs[1];
                 break;
             }
