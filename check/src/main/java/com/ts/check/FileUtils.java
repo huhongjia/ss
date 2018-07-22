@@ -29,7 +29,7 @@ public class FileUtils {
         if(file.exists()){
             file.delete();
         }
-        OutputStreamWriter write = new OutputStreamWriter(new FileOutputStream(file), "GBK");
+        OutputStreamWriter write = new OutputStreamWriter(new FileOutputStream(file,true), "GBK");
         BufferedWriter bw = new BufferedWriter(write);
         bw.write(data);
         bw.close();
