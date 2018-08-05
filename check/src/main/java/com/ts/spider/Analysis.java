@@ -53,16 +53,16 @@ public class Analysis {
                     }
                     while ((bugs == null) && (retry < 5)) {
                         long sleep = 2000L;
-                        System.out.println("Spider Bug Cookie:" + cookie + "���������wait:" + sleep + "ms");
+                        System.out.println("Spider Bug Cookie:" + cookie + ",wait:" + sleep + "ms");
                         Thread.sleep(sleep);
                         String newCookie = CookieUtils.getCookie(p);
-                        System.out.println("Spider Bug  Cookie:" + cookie + "���������������������������Cookie:" + newCookie + ",���������������" + ++retry);
+                        System.out.println("Spider Bug  Cookie:" + cookie + ",Cookie:" + newCookie + ",���������������" + ++retry);
 
                         bugs = spiderBugDetail(meta.getUrl(), p, newCookie, info.getName());
                         cookie = newCookie;
                     }
                     if ((bugs == null) || (bugs.size() == 0)) {
-                        String data = "���������������" + info.getName() + "#" + meta.getUrl() + "\r\n";
+                        String data = "Spdier Bug Error:" + info.getName() + "#" + meta.getUrl() + "\r\n";
                         String errorFile = p.getProperty("data.dest") + File.separator + "error.txt";
                         FileUtils.writeFile(errorFile, data);
                     }
@@ -92,7 +92,7 @@ public class Analysis {
                             bug = (BugInfo) bugs.get(j);
 
                             product = (String) bug.getMetas().get("Product");
-                            String url = "http://bugzilla.unisoc.com/bugzilla/show_bug.cgi?id=" + bug.getId();
+                            String url = "https://bugzilla.unisoc.com/bugzilla/show_bug.cgi?id=" + bug.getId();
                             System.out.println("[" + j + "/" + bugs.size() + "]Spider bug->" + bug.getId());
 
                             String data = spiderBugComment(url, p, cookie);

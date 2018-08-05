@@ -25,7 +25,7 @@ public class CookieUtils {
         String[] arr = cookie.split(";");
         for (String tmp : arr) {
             String[] kvs = tmp.trim().split("=");
-            if (kvs[0].equals("Bugzilla_login_request_cookie")) {
+            if (kvs[0].equals("Bugzilla_logincookie")) {
                 Bugzilla_logincookie = kvs[1];
                 break;
             }
@@ -35,7 +35,7 @@ public class CookieUtils {
 
     private static String login(Properties p)
             throws Exception {
-        URL url = new URL("http://bugzilla.unisoc.com/bugzilla/page.cgi");
+        URL url = new URL("https://bugzilla.unisoc.com/bugzilla/page.cgi");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoInput(true);
         connection.setDoOutput(true);
@@ -50,8 +50,8 @@ public class CookieUtils {
         connection.setRequestProperty("Cache-Control", "max-age=0");
         connection.setRequestProperty("Connection", "keep-alive");
         connection.setRequestProperty("Host", "bugzilla.spreadtrum.com");
-        connection.setRequestProperty("Origin", "http://bugzilla.unisoc.com");
-        connection.setRequestProperty("Referer", "http://bugzilla.unisoc.com/bugzilla/page.cgi");
+        connection.setRequestProperty("Origin", "https://bugzilla.unisoc.com");
+        connection.setRequestProperty("Referer", "https://bugzilla.unisoc.com/bugzilla/page.cgi");
         connection.setRequestProperty("Upgrade-Insecure-Requests", "1");
         connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
 

@@ -14,15 +14,8 @@ public class SpiderMain {
         String cookie = CookieUtils.getCookie(p);
         long e = System.currentTimeMillis();
 
-        String confCookie = p.getProperty("cookie");
-
-        System.out.println("[Cookie]:login.cookie" + cookie + ",config.cookie:" + confCookie + ",cost:" + (e - s) / 100L + "s");
-        if ((cookie == "") || (cookie == null)) {
-            System.out.println("Cookie not found!");
-        }
         String fileName = p.getProperty("data.source");
-
-        new Analysis().analysis(fileName, p, confCookie == null?cookie:confCookie);
+        new Analysis().analysis(fileName, p, cookie);
     }
 
     public Properties loadConfig(String[] args)
@@ -47,7 +40,7 @@ public class SpiderMain {
 
     private static String spiderContent(String from, String to, String cookie)
             throws Exception {
-        URL url = new URL("http://bugzilla.spreadtrum.com/bugzilla/page.cgi?id=productsummary.html&tab=&product=all&status=by_people_day&date_from=" + from + "&date_to=" + to + "&findby=Group&findrole=&grouplist=&show=Show");
+        URL url = new URL("https://bugzilla.spreadtrum.com/bugzilla/page.cgi?id=productsummary.html&tab=&product=all&status=by_people_day&date_from=" + from + "&date_to=" + to + "&findby=Group&findrole=&grouplist=&show=Show");
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
